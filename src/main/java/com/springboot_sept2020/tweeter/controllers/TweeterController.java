@@ -20,18 +20,33 @@ public class TweeterController {
 
     @GetMapping("/")
     public String index(Model tweeterFactModel){
-        // String example = "Test!!!";
+        // String example = "Test!";
         // tweeterFactModel.addAttribute("tweetFactToDisplay", example);
         // tilføjer data til min view:
         tweeterFactModel.addAttribute("tweetTextToDisplay", listOfTweets);
         return "index";
     }
+
     @PostMapping("/postTweeterFact")
     public String postTweetFact(WebRequest dataFromForm){
-        TweeterFact tweetFactFromForm = new TweeterFact(dataFromForm.getParameter("tweetfact"), "Jean");
+        String tweeterPublic = dataFromForm.getParameter("tweeterPublic");
+        int radioButtonTweeterPublic = 0;
+        if(Boolean.parseBoolean(tweeterPublic) == true){
+            radioButtonTweeterPublic = 1;
+        }
+        TweeterFact tweetFactFromFormPublic = new TweeterFact(dataFromForm.getParameter("publicTweetsToDisplay"), "Jean", null);
+        TweeterFact tweetFactFromFormPrivate = new TweeterFact(dataFromForm.getParameter("privateTweetsToDisplay"), "Jean", null);
         // tweetObj = tweetFactFromForm;
         // System.out.println(dataFromForm.getParameter(s:"catfact"));
-        listOfTweets.add(tweetFactFromForm);
+
+        listOfTweets.add(tweetFactFromFormPublic);
+        listOfTweets.add(tweetFactFromFormPrivate);
         return "redirect:/";
+    }
+
+    @GetMapping("/privateTweets")
+    public String privateTweets(Model TweeterController){
+        TweeterController.addAttribute("privateTweetsToDisplay", listOfTweets);
+        return "privateTweets";
     }
 }

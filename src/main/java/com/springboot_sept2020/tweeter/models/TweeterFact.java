@@ -9,20 +9,21 @@ public class TweeterFact {
     private String userName;
     private LocalDate tweetDate;
     private LocalTime tweetTime;
+    private String makePublic;
 
-    public TweeterFact(String tweetText, String userName){
+    public TweeterFact(String tweetText, String userName, String makePublic){
         this.tweetText = tweetText;
         this.userName = userName;
+        this.makePublic = makePublic;
         this.tweetDate = tweetDate.now();
         this.tweetTime = tweetTime.now();
     }
-
-    public LocalTime getTweetTime() {
-        return tweetTime;
+    public String getTweetText(){
+        return tweetText;
     }
 
-    public void setTweetTime(LocalTime tweetTime) {
-        this.tweetTime = tweetTime;
+    public void setTweet(String tweet){
+        this.tweetText = tweet;
     }
 
     public String getUserName() {
@@ -33,6 +34,13 @@ public class TweeterFact {
         this.userName = userName;
     }
 
+    public String getMakePublic(){
+        return makePublic;
+    }
+    public void setMakePublic(String makePublic) {
+        this.makePublic = makePublic;
+    }
+
     public LocalDate getTweetDate() {
         return tweetDate;
     }
@@ -41,12 +49,12 @@ public class TweeterFact {
         this.tweetDate = tweetDate;
     }
 
-    public String getTweetText(){
-        return tweetText;
+    public LocalTime getTweetTime() {
+        return tweetTime;
     }
 
-    public void setTweet(String tweet){
-        this.tweetText = tweet;
+    public void setTweetTime(LocalTime tweetTime) {
+        this.tweetTime = tweetTime;
     }
 
     @Override

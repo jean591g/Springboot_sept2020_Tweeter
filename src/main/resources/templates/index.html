@@ -1,19 +1,22 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Tweeter POST</title>
+  <title>Public Tweets</title>
   <link href="style.css" type="text/css" rel="stylesheet">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
 </head>
 <body>
 	<div class="container">
+		<a href="/privateTweets"><br>Go to Private Tweets<br></a>
 		<div class="row">
 			<div class="col">
 				<div id="form-container">
 					<form id="registration-form" action="/postTweeterFact" method="post">
-						<label for="tweetfact">Insert your tweet</label>
-						<input type="text" id="tweetfact" name="tweetfact"><br><br>
+						<label for="publicTweetsToDisplay">Insert your tweet</label>
+						<input type="text" id="publicTweetsToDisplay" name="publicTweetsToDisplay"><br><br>
+						<label for="tweeterPublic">Public</label>
+						<input type="radio" id="tweeterPublic" name="tweeterPublic" value="true"><br><br>
 						<input type="submit" value="Submit">
 					</form>
 				</div>
@@ -23,14 +26,18 @@
 						<tr>
 							<th>Name</th>
 							<th>Text</th>
+							<th>Public</th>
 							<th>Date</th>
 							<th>Time</th>
 						</tr>
 						<tr th:each="count : ${tweetTextToDisplay}">
-							<td th:text="${count.getUserName()}"></td>
-							<td th:text="${count.getTweetText()}"></td>
-							<td th:text="${count.getTweetDate()}"></td>
-							<td th:text="${count.getTweetTime()}"></td>
+							<div th:if="${count.getMakePublic() == 1}">
+								<td th:text="${count.getUserName()}"></td>
+								<td th:text="${count.getTweetText()}"></td>
+								<td th:text="${count.getMakePublic()}"></td>
+								<td th:text="${count.getTweetDate()}"></td>
+								<td th:text="${count.getTweetTime()}"></td>
+							</div>
 						</tr>
 					</table>
 				</div>

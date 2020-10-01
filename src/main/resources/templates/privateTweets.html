@@ -1,0 +1,47 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Private Tweets</title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <a href="/"><br>Go to Public Tweets<br></a>
+    <div class="row">
+        <div class="col">
+            <div id="form-container">
+                <form id="registration-form" action="/postTweeterFact" method="post">
+                    <label for="privateTweetsToDisplay">Insert your tweet</label>
+                    <input type="text" id="privateTweetsToDisplay" name="privateTweetsToDisplay"><br><br>
+                    <label for="tweeterPublic">Public</label>
+                    <input type="radio" id="tweeterPublic" name="tweeterPublic" value="true"><br><br>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div th:if="${not #lists.isEmpty(privateTweetsToDisplay)}">
+                <h2>Counts List</h2>
+                <table class="table table-striped">
+                    <tr>
+                        <th>Name</th>
+                        <th>Text</th>
+                        <th>Public</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                    <tr th:each="count : ${privateTweetsToDisplay}">
+                    <div th:if="${count.getMakePublic() == 0}">
+                        <td th:text="${count.getUserName()}"></td>
+                        <td th:text="${count.getTweetText()}"></td>
+                        <td th:text="${count.getMakePublic()}"></td>
+                        <td th:text="${count.getTweetDate()}"></td>
+                        <td th:text="${count.getTweetTime()}"></td>
+                    </div>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
